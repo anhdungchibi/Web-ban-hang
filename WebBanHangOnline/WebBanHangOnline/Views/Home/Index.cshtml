@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "DH Flowers";
+    ViewBag.SeoDescription = "DH Flowers";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/main_styles.css">
+<!-- Slider -->
+
+<div class="main_slider" style="background-image:url(Content/assets/images/banner11.jpg)">
+    <div class="container fill_height">
+        <div class="row align-items-center fill_height">
+            <div class="col">
+                <div class="main_slider_content">
+                    <h6>Beautiful & Special</h6>
+                    <h1>Lan tỏa yêu thương qua từng cánh hoa</h1>
+                    <div class="red_button shop_now_button"><a href="/san-pham">Mua ngay</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Banner -->
+@Html.Action("MenuProductCategory", "Menu")
+
+<!-- New Arrivals -->
+
+<div class="new_arrivals">
+    <div class="container">
+        @Html.Action("MenuArrivals", "Menu")
+    </div>
+</div>
+
+<!-- Best Sellers -->
+@Html.Action("Partial_ProductSales", "Products")
+
+
+<!-- Blogs -->
+@Html.Action("Partial_News_Home", "News")

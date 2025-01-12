@@ -1,0 +1,77 @@
+﻿@model WebBanHangOnline.Models.EF.Import
+@{
+    ViewBag.Title = "Thêm mới nhập hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section naviheader{
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/news" class="nav-link">Nhập hàng</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Thêm mới</a>
+        </li>
+    </ul>
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thêm mới nhập hàng</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Thông tin thêm mới nhập hàng</h3>
+        </div>
+        <div class="card-body">
+            <div class="bs-stepper-content">
+                @using (Html.BeginForm("Add", "Import", FormMethod.Post, new { }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <!-- your steps content here -->
+                <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nhà cung cấp</label>
+                        @Html.DropDownListFor(x => x.SupplierId, ViewBag.Supplier as SelectList, "-Chọn nhà cung cấp-", new { @class = "form-control", @placeholder = "Mã mã phẩm" })
+                        @Html.ValidationMessageFor(x => x.SupplierId, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Mô tả</label>
+                        @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Người tạo</label>
+                        @Html.TextBoxFor(x => x.CreatedBy, new { @class = "form-control", @placeholder = "Người tạo" })
+                        @Html.ValidationMessageFor(x => x.CreatedBy, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <a href="/admin/import" class="btn btn-danger">Quay lại</a>
+                    </div>
+                </div>
+
+                }
+
+            </div>
+        </div>
+        <div class="card-footer">
+        </div>
+    </div>
+</section>

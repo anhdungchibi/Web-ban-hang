@@ -1,0 +1,103 @@
+﻿@model WebBanHangOnline.Models.EF.ImportDetail
+
+@{
+    ViewBag.Title = "AddImportDetail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section naviheader{
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/news" class="nav-link">Chi tiết nhập hàng</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Thêm mới</a>
+        </li>
+    </ul>
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thêm mới chi tiết nhập hàng</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Thông tin thêm mới chi tiết nhập hàng</h3>
+        </div>
+        <div class="card-body">
+            <div class="bs-stepper-content">
+                @using (Html.BeginForm("AddImportDetail", "Import", FormMethod.Post, new { }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <!-- your steps content here -->
+                <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tên sản phẩm</label>
+                        @Html.DropDownListFor(x => x.ProductId, ViewBag.Product as SelectList, "-Chọn sản phẩm-", new { @class = "form-control", @placeholder = "Mã mã phẩm" })
+                        @Html.ValidationMessageFor(x => x.ProductId, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tên người tạo</label>
+                        @Html.DropDownListFor(x => x.ImportId, ViewBag.Import as SelectList, "-Chọn người tạo-", new { @class = "form-control", @placeholder = "Tên người tạo" })
+                        @Html.ValidationMessageFor(x => x.ImportId, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Đơn vị tính</label>
+                        @Html.TextBoxFor(x => x.CalculationUnit, new { @class = "form-control", @placeholder = "Đơn vị tính" })
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Số lượng</label>
+                        @Html.TextBoxFor(x => x.Quantity, new { @class = "form-control", @Value = "" })
+                        @Html.ValidationMessageFor(x => x.Quantity, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Giá</label>
+                        <input type="text" name="demoPrice" value="" id="demoPrice" class="form-control auto" data-a-dec="," data-a-sep=".">
+                        @Html.HiddenFor(x => x.Price, new { @class = "", @placeholder = "Giá" })
+                        @Html.ValidationMessageFor(x => x.Price, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <a href="/admin/import/index" class="btn btn-danger">Quay lại</a>
+                    </div>
+
+                </div>
+
+                }
+
+            </div>
+        </div>
+        <div class="card-footer">
+        </div>
+    </div>
+</section>
+
+@section  scripts{
+    <script>
+        $(document).ready(function () {
+            $('.auto').autoNumeric('init');
+            $('#demoPrice').bind('blur focusout keypress keyup', function () {
+                var demoGet = $('#demoPrice').autoNumeric('get');
+                $('#Price').val(demoGet);
+                $('#Price').autoNumeric('set', demoGet);
+            });
+        });
+    </script>
+}
